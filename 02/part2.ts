@@ -1,7 +1,6 @@
 const file = Bun.file(`${import.meta.dir}/input.txt`);
 const input = await file.text();
-let _rows = input.split('\n');
-_rows.pop();
+let _rows = input.split('\n').slice(0, -1);
 
 const rows = _rows
   .map((row) => row.split(/^Game \d+: |; /).slice(1))
@@ -13,7 +12,7 @@ type Color = 'red' | 'green' | 'blue';
 
 rows.forEach((row, index) => {
   // console.log(row)
-  console.log('game', index + 1);
+  // console.log('game', index + 1);
 
   const greatest = { red: 0, blue: 0, green: 0 };
 
@@ -28,7 +27,7 @@ rows.forEach((row, index) => {
   });
 
   const { red, blue, green } = greatest;
-  console.log(greatest);
+  // console.log(greatest);
   sum += red * blue * green;
 });
 

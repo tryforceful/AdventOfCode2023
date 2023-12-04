@@ -1,10 +1,6 @@
 const file = Bun.file(`${import.meta.dir}/input.txt`);
-
 const input = await file.text();
-let rows = input.split('\n');
-rows.pop();
-
-console.dir(rows);
+let rows = input.split('\n').slice(0, -1);
 
 let sum = 0;
 
@@ -27,7 +23,7 @@ rows.forEach((row) => {
     ) ?? [];
   const matches = matches0.map((x) => digit[x as keyof typeof digit] ?? x);
 
-  console.log([...matches]);
+  // console.log([...matches]);
 
   sum += Number(matches[0] + matches[matches.length - 1]);
 });

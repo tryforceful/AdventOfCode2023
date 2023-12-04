@@ -1,7 +1,9 @@
 const file = Bun.file(`${import.meta.dir}/input.txt`);
 const input = await file.text();
-let rows = input.split('\n').map((x) => x.split(''));
-rows.pop();
+let rows = input
+  .split('\n')
+  .map((x) => x.split(''))
+  .slice(0, -1);
 
 const DIMENSION = rows.length;
 const NEIGHBORS = [
@@ -19,11 +21,21 @@ const IS_DIGIT = /\d/;
 let i, j;
 let sum = 0;
 
-for (i = 0; i < DIMENSION; i++)
-  for (j = 0; j < DIMENSION; j++) if (IS_DIGIT.test(rows[i][j])) determineNumberFromDigits(i, j);
+for (i = 0; i < DIMENSION; i++) {
+  for (j = 0; j < DIMENSION; j++) {
+    if (IS_DIGIT.test(rows[i][j])) {
+      determineNumberFromDigits(i, j);
+    }
+  }
+}
 
-for (i = 0; i < DIMENSION; i++)
-  for (j = 0; j < DIMENSION; j++) if (rows[i][j] === '*') inspectGearEnvirons(i, j);
+for (i = 0; i < DIMENSION; i++) {
+  for (j = 0; j < DIMENSION; j++) {
+    if (rows[i][j] === '*') {
+      inspectGearEnvirons(i, j);
+    }
+  }
+}
 
 console.log(sum);
 
@@ -58,5 +70,7 @@ function inspectGearEnvirons(row: number, col: number) {
     }
   }
 
-  if (neighbor_nums.size === 2) sum += [...neighbor_nums].reduce((a, b) => a * b, 1);
+  if (neighbor_nums.size === 2) {
+    sum += [...neighbor_nums].reduce((a, b) => a * b, 1);
+  }
 }

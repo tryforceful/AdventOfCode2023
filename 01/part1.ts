@@ -1,11 +1,7 @@
 const file = Bun.file(`${import.meta.dir}/input.txt`);
 
 const input = await file.text();
-let rows = input.split('\n');
-rows.pop();
-
-// rows = rows.slice(0,10)
-// console.log(rows)
+let rows = input.split('\n').slice(0, -1);
 
 let sum = 0;
 

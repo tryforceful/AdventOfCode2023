@@ -1,14 +1,10 @@
 const file = Bun.file(`${import.meta.dir}/input.txt`);
 const input = await file.text();
-let _rows = input.split('\n');
-_rows.pop();
+let _rows = input.split('\n').slice(0, -1);
 
 const rows = _rows
   .map((row) => row.split(/^Game \d+: |; /).slice(1))
   .map((row) => row.map(dieParser));
-// .slice(0,10)
-
-// console.log(rows)
 
 const max = {
   red: 12,
@@ -21,7 +17,7 @@ let sum = 0;
 
 rows.forEach((row, index) => {
   // console.log(row)
-  console.log('game', index + 1);
+  // console.log('game', index + 1);
   for (let i = 0; i < row.length; i++) {
     const revealedDice = Object.entries(row[i]);
     console.log(revealedDice);

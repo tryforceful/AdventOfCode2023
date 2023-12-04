@@ -1,10 +1,9 @@
-const file = Bun.file(`${import.meta.dir}/sample.txt`);
+const file = Bun.file(`${import.meta.dir}/input.txt`);
 const input = await file.text();
-let rows = input.split('\n').map((x) => x.split(''));
-rows.pop();
-
-// rows = rows.slice(0,10)
-console.log(input);
+let rows = input
+  .split('\n')
+  .map((x) => x.split(''))
+  .slice(0, -1);
 
 const DIMENSION = rows.length;
 const NEIGHBORS = [
@@ -30,11 +29,9 @@ function examinePoint(y: number, x: number) {
   const char = rows[y][x];
 
   if (IS_DIGIT.test(char)) {
-    // numeric
     let q = x + 1;
     while (q < DIMENSION && IS_DIGIT.test(rows[y][q])) q++;
     q--;
-
     // Range of number is now [y][x -> q], inclusive
 
     inspectEnvirons(y, x, q);
