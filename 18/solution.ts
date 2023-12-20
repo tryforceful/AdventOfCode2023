@@ -83,7 +83,7 @@ const dirDiff = {
 //   return answer;
 // }
 
-function solve(part2 = true) {
+function solve(part2 = false) {
   let timer = Date.now();
   let answer = 0;
 
@@ -202,8 +202,44 @@ function solve(part2 = true) {
   return answer;
 }
 
+function pickShoelaceMethod(part2 = false) {
+  let timer = Date.now();
+  let answer = 0;
+
+  if (part2) {
+    digs = digs.map(([, , c]) => {
+      const dist = parseInt(c.slice(0, 5), 16);
+      const dir = Dir[3 - parseInt(c.charAt(5), 16)];
+
+      return [dir as keyof typeof dirDiff, dist, c];
+    });
+  }
+
+  let i = 0, j = 0;
+  let determinant = 0;
+  let borderCount = 0;
+ 
+  digs.forEach(([dir, num]) => {
+    const [di, dj] = dirDiff[dir];
+    const [ni, nj] = [i + di * num, j + dj * num];
+
+    determinant += i * nj - j * ni;
+    borderCount += num;
+    [i, j] = [ni, nj];
+  });
+  determinant = Math.abs(determinant / 2);
+
+  answer = determinant + borderCount / 2 + 1;
+
+  console.log(`part ${part2 ? 2 : 1}:`, answer);
+  console.log(`Time spent on part ${part2 ? 2 : 1}:`, Date.now() - timer, 'ms');
+  return answer;
+}
+
 // part 1
 assert(solve(false) === (TEST ? 62 : 58550));
+assert(pickShoelaceMethod() === (TEST ? 62 : 58550));
 
 // part 2
 assert(solve(true) === (TEST ? 952408144115 : 47452118468566));
+assert(pickShoelaceMethod(true) === (TEST ? 952408144115 : 47452118468566));
