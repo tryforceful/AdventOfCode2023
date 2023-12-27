@@ -1,0 +1,14 @@
+strict graph day23 {
+  "0,1" -- "5,3" [weight=15] [label=15]
+  "5,3" -- "13,5" [weight=22] [label=22]
+  "13,5" -- "19,13" [weight=38] [label=38]
+  "19,13" -- "13,13" [weight=10] [label=10]
+  "13,13" -- "3,11" [weight=24] [label=24]
+  "3,11" -- "5,3" [weight=22] [label=22]
+  "3,11" -- "11,21" [weight=30] [label=30]
+  "11,21" -- "13,13" [weight=18] [label=18]
+  "11,21" -- "19,19" [weight=10] [label=10]
+  "19,19" -- "19,13" [weight=10] [label=10]
+  "19,19" -- "22,21" [weight=5] [label=5]
+  "13,13" -- "13,5" [weight=12] [label=12]
+}
